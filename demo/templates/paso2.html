@@ -1,0 +1,17 @@
+<h1>Formulario de prueba: Paso 2</h1>
+
+{errores}
+
+<form  action=""  method="post">
+    <div {c-apellidos}>
+        <label for="apellidos">Apellidos: *</label>
+        <input type="text" id="apellidos" name="apellidos" {v-apellidos}>
+    </div>
+    <div {c-fijo}>
+        <label for="fijo">Telefono fijo: *</label>
+        <input type="text" id="fijo" name="fijo" {v-fijo}>
+    </div>
+    <input type="submit" name="submit2" value="Enviar">
+    <input type="submit" name="back1" value="Atras">
+</form>
+

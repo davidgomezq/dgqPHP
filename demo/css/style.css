@@ -1,0 +1,112 @@
+/* CLASES VARIAS */
+html {
+    font-size: 14px;
+    font-family: sans-serif;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%
+}
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    font-weight: 700
+}
+
+input {
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid #808080;
+    margin: 7px 0 7px 0;
+}
+
+h1 {
+    margin: .67em 0;
+    font-size: 2em
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+/* CLASS PARA INDICAR QUE ES CORRECTO */
+.has-success label { color: #3c763d }
+.has-success input {
+    border: 1px solid #3c763d;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075)
+}
+.has-success input:focus {
+    outline: none;
+    border-color: #2b542c;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #67b168;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #67b168
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6
+}
+
+/* CLASS PARA INDICAR QUE EL FORMATO ES INCORRECTO */
+.has-warning label { color: #8a6d3b }
+.has-warning input {
+    border: 1px solid #8a6d3b;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075)
+}
+.has-warning input:focus {
+    outline: none;
+    border-color: #66512c;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #c0a16b;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #c0a16b
+}
+
+.alert-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc
+}
+
+/* CLASS PARA INDICAR QUE NO SE HA RELLENADO */
+.has-error label { color: #a94442 }
+.has-error input {
+    border: 1px solid  #a94442;
+    -webkit-box-shadow: inset 0 3px 3px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 3px 3px rgba(0, 0, 0, .075)
+}
+.has-error input:focus {
+    outline: none;
+    border-color: #843534;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483
+}
+
+.alert-error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1
+}
+
+/* CLASS PARA INDICAR ERRORES EN ARCHIVOS */
+.error-file label { color: #31708f }
+.error-file input {
+    border: 1px solid #31708f;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075)
+}
+.error-file input:focus {
+    outline: none;
+    border-color: #2d5874;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #64bee1;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #64bee1
+}
+
+.alert-file {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1
+}

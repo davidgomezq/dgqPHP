@@ -1,0 +1,20 @@
+<h1>Formulario de prueba: Paso 1</h1>
+
+{errores}
+
+<form  action=""  method="post">
+    <div {c-nombre}>
+        <label for="nombre">Nombre: *</label>
+        <input type="text" id="nombre" name="nombre" {v-nombre}>
+    </div>
+    <div {c-movil}>
+        <label for="movil">Telefono movil: *</label>
+        <input type="text" id="movil" name="movil" {v-movil}>
+    </div>
+    <div {c-pwd}>
+        <label for="pwd">Password:</label>
+        <input type="text" id="pwd" name="pwd" {v-pwd}>
+    </div>
+    <input type="submit" name="submit1" value="Enviar">
+</form>
+

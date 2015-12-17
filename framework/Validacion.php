@@ -29,7 +29,7 @@ class ValidateForm {
     private $pendientes = [], $correctos = [], $campos = [];
 
     public function __construct() {
-        $this->campos = FormInfo::getPatronCamposPaso(FormInfo::getPaso());
+        $this->campos = Config::getPatronCamposPaso(Config::getPaso());
     }
 
     /**
@@ -74,20 +74,11 @@ class ValidateForm {
      */
     public function writePendiente($name, $error) {
         $this->pendientes[$name] = $error;
-
-        // Lo mandamos guardar a la session
-        Session::writePendiente($name, $error);
-
-        // Lo mandamos borrar
         $this->removeCorrecto($name);
     }
+
     public function writeCorrecto($name, $value) {
         $this->correctos[$name] = $value;
-
-        // Lo mandamos guardar a la session
-        Session::writeCorrecto($name, $value);
-
-        // Lo mandamos borrar
         $this->removePendiente($name);
     }
 
@@ -97,15 +88,22 @@ class ValidateForm {
     public function removePendiente($name) {
         if (array_key_exists($name, $this->pendientes))
             unset($this->pendientes[$name]);
-
-        // Lo mandamos borrar a la session
-        Session::removePendiente($name);
     }
+
     public function removeCorrecto($name) {
         if (array_key_exists($name, $this->correctos))
             unset($this->correctos[$name]);
+    }
 
-        // Lo mandamos borrar a la session
-        Session::removeCorrecto($name);
+    /**
+     * Gets
+     */
+
+    public function getPendientes() {
+        return $this->pendientes;
+    }
+
+    public function getCorrectos() {
+        return $this->correctos;
     }
 }

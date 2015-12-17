@@ -5,23 +5,34 @@
  *
  * Se encarga de la generación de los HTML
  */
-class View {
+class Vista {
+
+    /**************************
+     * Atributos y Constantes *
+     **************************/
+    private $pendientes = [], $correctos = [];
+
+    /** CONSTRUCTOR **/
+    public function __construct($ko, $ok) {
+        $this->pendientes = $ko;
+        $this->correctos = $ok;
+    }
 
     /**
-     * Función que genera la vista HTML y la muestra
+     * Función que genera la vista HTML del contenido y la muestra
      */
-    public static function generarContenido($vista) {
-        $vista = file_get_contents($vista);
-        $vista = self::replaceErrores( $vista);
+    public function generarContenido($paso) {
+        $vista = file_get_contents(Config::HTML_PATH.'/'.Config::HTML_PREFIX_PASO.$paso.'.html');
+        $vista = $this->replaceErrores($vista);
 
         // CAMPOS DE TEXTO - CORRECTOS
-        $campos = Session::getCorrectos();
+        $campos = $this->correctos;
         if (!empty($campos))
             foreach ($campos as $name => $valor)
                 $vista = self::replaceEtiquetas($name, Session::CORRECTOS, $vista, "has-success");
 
         // CAMPOS DE TEXTO - PENDIENTES O FORMATO INCORRECTO
-        $campos = Session::getPendientes();
+        $campos = $this->pendientes;
         if (!empty($campos))
             foreach ($campos as $name => $error)
                 switch($error) {
@@ -37,6 +48,21 @@ class View {
     }
 
     /**
+     * Función que genera la vista HTML del paso final y la muestra
+     */
+    public static function printPasoFinal($camposForm) {
+        $vista = file_get_contents(Config::HTML_PATH.'/'.Config::HTML_HEAD);
+        $vista .= file_get_contents(Config::HTML_PATH.'/'.Config::HTML_PREFIX_PASO.Config::PASO_FINAL.'.html');
+
+        if (!empty($camposForm))
+            foreach ($camposForm as $name => $value)
+                $vista = str_replace('{v-'.$name.'}', $value, $vista);
+
+        $vista .= file_get_contents(Config::HTML_PATH.'/'.Config::HTML_END);
+        print ($vista);
+    }
+
+    /**
      * Función que reemplaza las etiquetas {} del HTML
      *
      * @param $name: nombre del campo
@@ -45,7 +71,7 @@ class View {
      * @param $class: Tipo de clase CSS ha aplicar
      * @return string del HTML.
      */
-    private static function replaceEtiquetas($name, $penOrMan, $vista, $class) {
+    private function replaceEtiquetas($name, $penOrMan, $vista, $class) {
         $tags = ($penOrMan == Session::CORRECTOS) ?
             array(
                 '{c-'.$name.'}', // class del div
@@ -56,7 +82,7 @@ class View {
         $replace = ($penOrMan == Session::CORRECTOS) ?
             array(
                 'class="'.$class.'"', // class del div
-                "value='".$_SESSION[FormInfo::getPaso()][$penOrMan][$name]."'") // value del input
+                "value='".$_SESSION[Config::getPaso()][$penOrMan][$name]."'") // value del input
             :
             'class="'.$class.'"';
 
@@ -66,9 +92,9 @@ class View {
     /**
      * Funcion que sustituye el tag {errores} por la información de los errores
      */
-    private static function replaceErrores($vista) {
+    private function replaceErrores($vista) {
         $errores = "";
-        $pendientes = Session::getPendientes();
+        $pendientes = $this->pendientes;
 
         // Si hay requeridos
         if (in_array(Errors::ERROR_UNSET, $pendientes))
@@ -87,10 +113,10 @@ class View {
      *
      * @param $contenido: se genera con la funcion 'generarContenido'
      */
-    public static function printVistaContenido($contenido) {
-        $vista = file_get_contents("templates/startHTML.html");
+    public function printVistaContenido($contenido) {
+        $vista = file_get_contents(Config::HTML_PATH.'/'.Config::HTML_HEAD);
         $vista .= $contenido;
-        $vista .= file_get_contents("templates/endHTML.html");
+        $vista .= file_get_contents(Config::HTML_PATH.'/'.Config::HTML_END);
         print ($vista);
     }
 
@@ -99,14 +125,25 @@ class View {
      *
      * @param $contenido: Ruta del contenido (normalmente paso1.html, paso2.html...)
      */
-    public static function printVista($startHTML, $contenido, $endHTML) {
-        $vista = file_get_contents($startHTML);
-        $vista .= file_get_contents($contenido);
-        $vista .= file_get_contents($endHTML);
+    public static function printVistaInicial() {
+        $vista = file_get_contents(Config::HTML_PATH.'/'.Config::HTML_HEAD);
+        $vista .= file_get_contents(Config::HTML_PATH.'/'.Config::HTML_PREFIX_PASO.'1.html');
+        $vista .= file_get_contents(Config::HTML_PATH.'/'.Config::HTML_END);
 
         // Si hay tag {errores} lo quitamos
         $vista = str_replace('{errores}', "", $vista);
         print ($vista);
+    }
+
+    /********
+     * Gets *
+     ********/
+    public function getPendientes() {
+        return $this->pendientes;
+    }
+
+    public function getCorrectos() {
+        return $this->correctos;
     }
 }
 

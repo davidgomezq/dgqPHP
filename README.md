@@ -7,3 +7,4 @@ $('body').on('click', function () {
   console.log('esto no sirve para nada');
 });
 ```
+Adios
